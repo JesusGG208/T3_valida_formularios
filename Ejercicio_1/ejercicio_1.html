@@ -24,51 +24,57 @@
 
 <body>
     <div class="contenedor">
-    <fieldset>
-        <legend>Formulario de datos</legend>
-        <form name="formulario" action="#" method="post" onsubmit="return validaFormulario(this)">
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
-            <br>
+        <fieldset>
+            <legend>Formulario de datos</legend>
+            <form name="formulario" action="#" method="post" onsubmit="return validaFormulario(this)">
+                <p>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
+                    <span class="error" id="nombreError"></span>
+                </p>
 
-            <br>
-            <label for="contrasena">Contraseña</label>
-            <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña" required>
-            <br>
-
-            <br>
-            <label for="confirmar-contrasena">Confirmar contraseña</label>
-            <input type="password" id="confirmar-contrasena" name="confirmar-contrasena"
-                placeholder="Ingrese otra vez su contraseña" required>
-            <br>
-
-            <br>
-            <label for="operacion">¿Cuánto es<span id="operacion_aritmetica"></span>?</label>
-            <input type="number" id="operacion" name="operacion" required>
-            <br>
-
-            <br>
-            <label for="condiciones">Acepto las condiciones</label>
-            <input type="checkbox" id="condiciones" name="condiciones" required>
-            <br>
-
-            <br>
-            <button type="submit">Crear cuenta</button>
-        </form>
-    </fieldset>
+                <p>
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña"
+                    required>
+                    <span class="error" id="contrasenaError"></span>
+                </p>
+                <p>
+                    <label for="confirmar-contrasena">Confirmar contraseña</label>
+                    <input type="password" id="confirmar-contrasena" name="confirmar-contrasena"
+                    placeholder="Ingrese otra vez su contraseña" required>
+                    <span class="error" id="confirmarError"></span>
+                </p>
+                <p>
+                    <label for="operacion">¿Cuánto es <span id="operacion_aritmetica"></span>?</label>
+                    <input type="number" id="operacion" name="operacion" required>
+                    <span class="error" id="operacionError"></span>
+                </p>
+                <p>
+                    <label for="condiciones">Acepto las condiciones</label>
+                    <input type="checkbox" id="condiciones" name="condiciones" required>
+                    <span class="error" id="condicionesError"></span>
+                </p>
+                <p>
+                    <button type="submit">Crear cuenta</button>
+                </p>
+            </form>
+        </fieldset>
     </div>
     <script>
         function validaFormulario(formulario) {
             let ex_reg_email = /^(.+\@.+\..+)$/;
             let ex_reg_contrasena = /^(?=(.*\d))(?!.*\s).{8,}$/;
 
-            let numero1 = Math.random() * 10;
-            let numero2 = Math.random() * 10;
+            let numero1 = Math.floor(Math.random() * 9) + 1;
+            let numero2 = Math.floor(Math.random() * 9) + 1;
             let resultado = numero1 + numero2;
-            document.getElementById('operacion_aritmetica').textContent = numero1 + " + " + numero2;
+            document.getElementById('operacion_aritmetica').innerText = "(" + numero1 + " + " + numero2 + ")";
 
-            
+
         }
+
+        validaFormulario(formulario);
     </script>
 </body>
 
