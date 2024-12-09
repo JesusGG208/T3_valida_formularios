@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <!--El formulario-->
     <form name="formulario" action="grabar.php" method="post" onsubmit="return validaFormulario(this)">
         <h1>Registro de personas de la provincia de Cádiz</h1>
         <p>
@@ -82,26 +83,29 @@
         let municipio = document.getElementById("poblacion");
         function validaFormulario() {
 
+            // Las expresiones regulares
             let exRegUsuario = /^[A-Za-z]{8,}$/;
             let exRegContrasena = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,10}$/;
 
             if (exRegUsuario.test(usernameInput.value) === false) {
-                document.getElementById("nombreError").innerText = "El dato nombre de usuario debe tener, al menos, 8 caracteres";
-                usernameInput.focus();
+                document.getElementById("nombreError").innerText = "El dato nombre de usuario debe tener, al menos, 8 caracteres"; // Muestra el mensaje
+                usernameInput.focus(); // Cuando se muestre el mensaje, este input tomará el foco
                 return false;
             }
 
             if (exRegContrasena.test(contrasenaInput.value) === false) {
-                document.getElementById("contrasenaError").innerText = "El dato contraseña debe tener entre 6 y 10 caracteres alfanúmericos y contar con al menos un digito y una letra mayúscula";
-                contrasenaInput.focus();
+                document.getElementById("contrasenaError").innerText = "El dato contraseña debe tener entre 6 y 10 caracteres alfanúmericos y contar con al menos un digito y una letra mayúscula"; // Muestra el mensaje
+                contrasenaInput.focus(); // Cuando se muestre el mensaje, este input tomará el foco
                 return false;
             }
 
             if (municipio.value === "") {
-                document.getElementById("municioError").innerText = "El dato poblacion debe tener puesto un municipio seleccionado";
-                municipio.focus();
+                document.getElementById("municioError").innerText = "El dato poblacion debe tener puesto un municipio seleccionado"; // Muestra el mensaje
+                municipio.focus(); // Cuando se muestre el mensaje, este input tomará el foco
                 return false;
             }
+
+            // Si todo es válido, el formulario se enviará
             return true;
         }
     </script>
