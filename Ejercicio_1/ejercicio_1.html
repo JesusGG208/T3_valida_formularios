@@ -20,6 +20,10 @@
     label {
         font-size: x-large;
     }
+
+    .error {
+        color: red;
+    }
 </style>
 
 <body>
@@ -29,52 +33,100 @@
             <form name="formulario" action="#" method="post" onsubmit="return validaFormulario(this)">
                 <p>
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre"> <br>
                     <span class="error" id="nombreError"></span>
                 </p>
 
                 <p>
+                    <label for="email">Correo</label>
+                    <input type="text" id="email" name="email" placeholder="Ingrese su email"> <br>
+                    <span class="error" id="correoError"></span>
+                </p>
+
+                <p>
                     <label for="contrasena">Contraseña</label>
-                    <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña"
-                    required>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña"> <br>
                     <span class="error" id="contrasenaError"></span>
                 </p>
                 <p>
-                    <label for="confirmar-contrasena">Confirmar contraseña</label>
-                    <input type="password" id="confirmar-contrasena" name="confirmar-contrasena"
-                    placeholder="Ingrese otra vez su contraseña" required>
+                    <label for="confirmarContrasena">Confirmar contraseña</label>
+                    <input type="password" id="confirmarContrasena" name="confirmarContrasena"
+                        placeholder="Ingrese otra vez su contraseña"> <br>
                     <span class="error" id="confirmarError"></span>
                 </p>
                 <p>
-                    <label for="operacion">¿Cuánto es <span id="operacion_aritmetica"></span>?</label>
-                    <input type="number" id="operacion" name="operacion" required>
+                    <label for="operacion">¿Cuánto es <span id="operacionAritmetica"></span>?</label>
+                    <input type="number" id="operacion" name="operacion"> <br>
                     <span class="error" id="operacionError"></span>
                 </p>
                 <p>
                     <label for="condiciones">Acepto las condiciones</label>
-                    <input type="checkbox" id="condiciones" name="condiciones" required>
-                    <span class="error" id="condicionesError"></span>
+                    <input type="checkbox" id="condiciones" name="condiciones">
                 </p>
                 <p>
-                    <button type="submit">Crear cuenta</button>
+                    <button type="submit" disabled>Crear cuenta</button>
                 </p>
             </form>
         </fieldset>
     </div>
     <script>
-        function validaFormulario(formulario) {
-            let ex_reg_email = /^(.+\@.+\..+)$/;
-            let ex_reg_contrasena = /^(?=(.*\d))(?!.*\s).{8,}$/;
+        let nombreInput = document.getElementById("nombre");
+        let emailInput = document.getElementById("email");
+        let contrasena1 = document.getElementById("contrasena");
+        let contrasena2 = document.getElementById("confirmarContrasena");
+        
+        let operacion = document.getElementById("operacion");
+        let numero1 = Math.floor(Math.random() * 9) + 1;
+        let numero2 = Math.floor(Math.random() * 9) + 1;
+        let resultado = numero1 + numero2;
+        document.getElementById("operacionAritmetica").innerText = "(" + numero1 + " + " + numero2 + ")";
 
-            let numero1 = Math.floor(Math.random() * 9) + 1;
-            let numero2 = Math.floor(Math.random() * 9) + 1;
-            let resultado = numero1 + numero2;
-            document.getElementById('operacion_aritmetica').innerText = "(" + numero1 + " + " + numero2 + ")";
+        let condicion = document.getElementById("condiciones");
+        let marcado = document.querySelector("button[type='submit']");
+        condicion.addEventListener("change", function () {
+            marcado.disabled = !condicion.checked;
+        });
 
 
+        
+
+        function validaFormulario() {
+
+            let exRegEmail = /^(.+\@.+\..+)$/;
+            let exRegContrasena = /^[A-Za-z0-9]{7,}[0-9]+$/;
+
+            if (nombreInput.value === "") {
+                document.getElementById("nombreError").innerText = "El campo del nombre no puede estar vacío";
+                nombreInput.focus();
+                return false;
+            }
+
+            if (exRegEmail.test(emailInput.value) === false) {
+                document.getElementById("correoError").innerText = "El correo que ha introducido no es válido";
+                emailInput.focus();
+                return false;
+            }
+
+            if (exRegContrasena.test(contrasena1.value) === false) {
+                document.getElementById("contrasenaError").innerText = "La contraseña debe contener al menos 8 caracteres y que cuente al menos con un dígito";
+                contrasena1.focus();
+                return false;
+            }
+
+            if (contrasena2.value !== contrasena1.value) {
+                document.getElementById("confirmarError").innerText = "Las contraseñas no coinciden";
+                contrasena2.focus();
+                return false;
+            }
+
+            if (operacion.value != resultado) {
+                document.getElementById("operacionError").innerText = "La respuesta es incorrecta";
+                operacion.focus();
+                return false;
+            }
+
+            return true;
         }
-
-        validaFormulario(formulario);
     </script>
 </body>
 
