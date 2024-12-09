@@ -7,6 +7,7 @@
     <title>Ejercicio 1</title>
 </head>
 <style>
+    /* Un css para hacerlo más estructurado */
     .contenedor {
         display: grid;
         place-items: center;
@@ -29,20 +30,18 @@
 <body>
     <div class="contenedor">
         <fieldset>
-            <legend>Formulario de datos</legend>
+            <legend>Formulario de datos</legend> <!--El formulario-->
             <form name="formulario" action="#" method="post" onsubmit="return validaFormulario(this)">
                 <p>
                     <label for="nombre">Nombre</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre"> <br>
                     <span class="error" id="nombreError"></span>
                 </p>
-
                 <p>
                     <label for="email">Correo</label>
                     <input type="text" id="email" name="email" placeholder="Ingrese su email"> <br>
                     <span class="error" id="correoError"></span>
                 </p>
-
                 <p>
                     <label for="contrasena">Contraseña</label>
                     <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña"> <br>
@@ -76,15 +75,16 @@
         let contrasena2 = document.getElementById("confirmarContrasena");
         
         let operacion = document.getElementById("operacion");
-        let numero1 = Math.floor(Math.random() * 9) + 1;
+        // Esto genera la operación
+        let numero1 = Math.floor(Math.random() * 9) + 1; 
         let numero2 = Math.floor(Math.random() * 9) + 1;
         let resultado = numero1 + numero2;
         document.getElementById("operacionAritmetica").innerText = "(" + numero1 + " + " + numero2 + ")";
 
         let condicion = document.getElementById("condiciones");
         let marcado = document.querySelector("button[type='submit']");
-        condicion.addEventListener("change", function () {
-            marcado.disabled = !condicion.checked;
+        condicion.addEventListener("change", function () { 
+            marcado.disabled = !condicion.checked; // Esto habilita el botón de enviar cuando la casilla de las condiciones está marcada
         });
 
 
@@ -92,39 +92,46 @@
 
         function validaFormulario() {
 
+            // Las expresiones regulares
             let exRegEmail = /^(.+\@.+\..+)$/;
             let exRegContrasena = /^[A-Za-z0-9]{7,}[0-9]+$/;
 
+            // Se verifica si el nombre no está vacío
             if (nombreInput.value === "") {
-                document.getElementById("nombreError").innerText = "El campo del nombre no puede estar vacío";
-                nombreInput.focus();
+                document.getElementById("nombreError").innerText = "El campo del nombre no puede estar vacío"; // Muestra el mensaje
+                nombreInput.focus(); // Cuando se muestre el mensaje, este input tomará el foco
                 return false;
             }
 
+            // Se verifica si el email sigue la condición de la expresión regular
             if (exRegEmail.test(emailInput.value) === false) {
-                document.getElementById("correoError").innerText = "El correo que ha introducido no es válido";
-                emailInput.focus();
+                document.getElementById("correoError").innerText = "El correo que ha introducido no es válido"; // Muestra el mensaje
+                emailInput.focus(); // Cuando se muestre el mensaje, este input tomará el foco
                 return false;
             }
 
+            // Se verifica si la contraseña sigue la condición de la expresión regular
             if (exRegContrasena.test(contrasena1.value) === false) {
-                document.getElementById("contrasenaError").innerText = "La contraseña debe contener al menos 8 caracteres y que cuente al menos con un dígito";
-                contrasena1.focus();
+                document.getElementById("contrasenaError").innerText = "La contraseña debe contener al menos 8 caracteres y que cuente al menos con un dígito"; // Muestra el mensaje
+                contrasena1.focus(); // Cuando se muestre el mensaje, este input tomará el foco
                 return false;
             }
 
+            // // Se verifica si la segunda contraseña coincide con la primera
             if (contrasena2.value !== contrasena1.value) {
-                document.getElementById("confirmarError").innerText = "Las contraseñas no coinciden";
-                contrasena2.focus();
+                document.getElementById("confirmarError").innerText = "Las contraseñas no coinciden"; // Muestra el mensaje
+                contrasena2.focus(); // Cuando se muestre el mensaje, este input tomará el foco
                 return false;
             }
 
+            // Se verifica si el resultado de la operación es correcto
             if (operacion.value != resultado) {
-                document.getElementById("operacionError").innerText = "La respuesta es incorrecta";
-                operacion.focus();
-                return false;
+                document.getElementById("operacionError").innerText = "La respuesta es incorrecta"; // Muestra el mensaje
+                operacion.focus(); // Cuando se muestre el mensaje, este input tomará el foco
+                return false; 
             }
 
+            // Si todo es válido, el formulario se enviará
             return true;
         }
     </script>
