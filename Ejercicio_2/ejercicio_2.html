@@ -1,13 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 2</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
+
 <body>
+    <form name="formulario" action="grabar.php" method="post" onsubmit="return validaFormulario(this)">
+        <h1>Registro de personas de la provincia de Cádiz</h1>
+        <p>
+            <label for="username">Nombre de usuario</label>
+            <input type="text" name="username" id="username" placeholder="Ingrese su nombre de usuario">
+            <span class="error" id="nombreError"></span>
+        </p>
+        <p>
+            <label for="contrasena">Contraseña</label>
+            <input type="password" name="contrasena" id="contrasena" placeholder="Ingrese su contraseña">
+            <span class="error" id="contrasenaError"></span>
+        </p>
+        <p>
+            <label for="poblacion">Población</label>
+            <select name="poblacion" id="poblacion">
+                <option value="" disabled selected>- Seleccione -</option>
+                <option value="Alcalá de los Gazules">Alcalá de los Gazules</option>
+                <option value="Alcalá del Valle">Alcalá del Valle</option>
+                <option value="Algeciras">Algeciras</option>
+                <option value="Barbate">Barbate</option>
+                <option value="Benalup-Casas Viejas">Benalup-Casas Viejas</option>
+                <option value="Benaocaz">Benaocaz</option>
+                <option value="Bornos">Bornos</option>
+                <option value="Cádiz">Cádiz</option>
+                <option value="Castellar de la Frontera">Castellar de la Frontera</option>
+                <option value="Chiclana de la Frontera">Chiclana de la Frontera</option>
+                <option value="Chipiona">Chipiona</option>
+                <option value="Conil de la Frontera">Conil de la Frontera</option>
+                <option value="Espera">Espera</option>
+                <option value="El Bosque">El Bosque</option>
+                <option value="El Gastor">El Gastor</option>
+                <option value="Grazalema">Grazalema</option>
+                <option value="Jerez de la Frontera">Jerez de la Frontera</option>
+                <option value="Jimena de la Frontera">Jimena de la Frontera</option>
+                <option value="La Línea de la Concepción">La Línea de la Concepción</option>
+                <option value="Los Barrios">Los Barrios</option>
+                <option value="Medina Sidonia">Medina Sidonia</option>
+                <option value="Olvera">Olvera</option>
+                <option value="Paterna de Rivera">Paterna de Rivera</option>
+                <option value="Prado del Rey">Prado del Rey</option>
+                <option value="Puerto Real">Puerto Real</option>
+                <option value="Puerto Serrano">Puerto Serrano</option>
+                <option value="Rota">Rota</option>
+                <option value="San Fernando">San Fernando</option>
+                <option value="San José del Valle">San José del Valle</option>
+                <option value="San Roque">San Roque</option>
+                <option value="Sanlúcar de Barrameda">Sanlúcar de Barrameda</option>
+                <option value="Setenil de las Bodegas">Setenil de las Bodegas</option>
+                <option value="Tarifa">Tarifa</option>
+                <option value="Torre Alháquime">Torre Alháquime</option>
+                <option value="Trebujena">Trebujena</option>
+                <option value="Ubrique">Ubrique</option>
+                <option value="Vejer de la Frontera">Vejer de la Frontera</option>
+                <option value="Villaluenga del Rosario">Villaluenga del Rosario</option>
+                <option value="Villamartín">Villamartín</option>
+                <option value="Zahara de la Sierra">Zahara de la Sierra</option>
+            </select>
+            <span class="error" id="municioError"></span>
+        </p>
+        <p>
+            <button type="submit">Registrar</button>
+        </p>
+    </form>
     <script>
-        
+        let usernameInput = document.getElementById("username");
+        let contrasenaInput = document.getElementById("contrasena");
+        let municipio = document.getElementById("poblacion");
+        function validaFormulario() {
+
+            let exRegUsuario = /^[A-Za-z]{8,}$/;
+            let exRegContrasena = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,10}$/;
+
+            if (exRegUsuario.test(usernameInput.value) === false) {
+                document.getElementById("nombreError").innerText = "El dato nombre de usuario debe tener, al menos, 8 caracteres";
+                usernameInput.focus();
+                return false;
+            }
+
+            if (exRegContrasena.test(contrasenaInput.value) === false) {
+                document.getElementById("contrasenaError").innerText = "El dato contraseña debe tener entre 6 y 10 caracteres alfanúmericos y contar con al menos un digito y una letra mayúscula";
+                contrasenaInput.focus();
+                return false;
+            }
+
+            if (municipio.value === "") {
+                document.getElementById("municioError").innerText = "El dato poblacion debe tener puesto un municipio seleccionado";
+                municipio.focus();
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
+
 </html>
