@@ -25,6 +25,10 @@
     .error {
         color: red;
     }
+
+    #boton {
+        display: none;
+    }
 </style>
 
 <body>
@@ -63,29 +67,35 @@
                     <input type="checkbox" id="condiciones" name="condiciones">
                 </p>
                 <p>
-                    <button type="submit" disabled>Crear cuenta</button>
+                    <button type="submit" id="boton">Crear cuenta</button>
                 </p>
             </form>
         </fieldset>
     </div>
     <script>
+        // Los inputs
         let nombreInput = document.getElementById("nombre");
         let emailInput = document.getElementById("email");
         let contrasena1 = document.getElementById("contrasena");
         let contrasena2 = document.getElementById("confirmarContrasena");
-        
         let operacion = document.getElementById("operacion");
-        // Esto genera la operación
+
+        // Esto es para generar la operación
         let numero1 = Math.floor(Math.random() * 9) + 1; 
         let numero2 = Math.floor(Math.random() * 9) + 1;
         let resultado = numero1 + numero2;
         document.getElementById("operacionAritmetica").innerText = "(" + numero1 + " + " + numero2 + ")";
 
         let condicion = document.getElementById("condiciones");
-        let marcado = document.querySelector("button[type='submit']");
-        condicion.addEventListener("change", function () { 
-            marcado.disabled = !condicion.checked; // Esto habilita el botón de enviar cuando la casilla de las condiciones está marcada
+        // Esto habilita el botón de enviar cuando la casilla de las condiciones está marcada
+        condicion.addEventListener('change', () => {
+            if (condicion.checked) {
+                boton.style.display = 'inline'; 
+            } else {
+                boton.style.display = 'none'; 
+            }
         });
+
 
 
         
