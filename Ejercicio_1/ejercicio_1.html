@@ -15,7 +15,7 @@
     }
 
     form {
-        padding: 25px;
+        padding: 20px;
     }
 
     label {
@@ -27,7 +27,7 @@
     }
 
     #boton {
-        display: none;
+        visibility: hidden;
     }
 </style>
 
@@ -87,14 +87,15 @@
         document.getElementById("operacionAritmetica").innerText = "(" + numero1 + " + " + numero2 + ")";
 
         let condicion = document.getElementById("condiciones");
+        let boton = document.getElementById("boton");
         // Esto habilita el botón de enviar cuando la casilla de las condiciones está marcada
         condicion.addEventListener("change", () => {
-            if (condicion.checked) {
-                boton.style.display = 'inline'; 
-            } else {
-                boton.style.display = 'none'; 
-            }
-        });
+        if (condicion.checked) {
+            boton.style.visibility = 'visible'; // Hace que el botón sea visible
+        } else {
+            boton.style.visibility = 'hidden'; // Oculta el botón pero deja el espacio ocupado
+        }
+    });
 
 
 
